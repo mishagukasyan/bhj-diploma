@@ -1,31 +1,21 @@
-/**
- * Класс Entity - базовый для взаимодействия с сервером.
- * Имеет свойство URL, равно пустой строке.
- * */
+'use strict';
+
 class Entity {
-  /**
-   * Запрашивает с сервера список данных.
-   * Это могут быть счета или доходы/расходы
-   * (в зависимости от того, что наследуется от Entity)
-   * */
-  static list(data, callback){
 
-  }
+    static list( URL, data, callback = f => f ) {
+        createRequest({ data: Object.assign({ url: URL, method: 'GET' }, data ) }, callback);
+    };
 
-  /**
-   * Создаёт счёт или доход/расход с помощью запроса
-   * на сервер. (в зависимости от того,
-   * что наследуется от Entity)
-   * */
-  static create(data, callback) {
+    static create( URL, data, callback = f => f ) {
+        createRequest({ data: Object.assign({ url: URL, method: 'POST', _method: 'PUT' }, data ) }, callback);
+    };
 
-  }
+    static get( URL, ID, data, callback = f => f ) {
+        createRequest({ data: Object.assign({ url: URL, id: ID,  method: 'GET' }, data ) }, callback);
+    };
 
-  /**
-   * Удаляет информацию о счёте или доходе/расходе
-   * (в зависимости от того, что наследуется от Entity)
-   * */
-  static remove(data, callback ) {
+    static remove( URL, ID, data, callback = f => f ) {
+        createRequest({ data: Object.assign({ url: URL, id: ID, method: 'POST', _method: 'DELETE' }, data ) }, callback);
+    };
 
-  }
 }

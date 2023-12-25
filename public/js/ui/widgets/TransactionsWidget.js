@@ -1,26 +1,23 @@
-/**
- * Класс TransactionsWidget отвечает за
- * открытие всплывающих окон для
- * создания нового дохода или расхода
- * */
+'use strict';
 
 class TransactionsWidget {
-  /**
-   * Устанавливает полученный элемент
-   * в свойство element.
-   * Если переданный элемент не существует,
-   * необходимо выкинуть ошибку.
-   * */
+
   constructor( element ) {
+    if ( !element ) { throw Error }
+    this.element = element;
+    this.registerEvents();
+  };
 
-  }
-  /**
-   * Регистрирует обработчики нажатия на
-   * кнопки «Новый доход» и «Новый расход».
-   * При нажатии вызывает Modal.open() для
-   * экземпляра окна
-   * */
   registerEvents() {
+    Array.from(this.element.querySelectorAll('button')).forEach( element => {
+      element.onclick = event => {
+        if (element.classList.contains('create-income-button')) {
+          App.getModal('newIncome').open();
+        } else {
+          App.getModal('newExpense').open();
+        }
+      }
+    });
+  };
 
-  }
 }
